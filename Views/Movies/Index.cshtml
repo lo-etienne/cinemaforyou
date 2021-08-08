@@ -1,0 +1,135 @@
+﻿@model IEnumerable<CinemaForYou.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="d-flex">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pegi
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var item in ViewBag.PegisList)
+            {
+                <a asp-action="Index" asp-route-pegiOrder="@item" class="dropdown-item">@item</a>
+            }
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Type
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var item in ViewBag.TypesList)
+            {
+                <a asp-action="Index" asp-route-typeOrder="@item" class="dropdown-item">@item</a>
+            }
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Implantation
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var item in ViewBag.ImlantationsList)
+            {
+                <a asp-action="Index" asp-route-implantationOrder="@item" class="dropdown-item">@item</a>
+            }
+        </div>
+    </div>
+</div>
+
+
+<form method="get">
+    <input asp-route-title="" class="form-control" list="moviesTitle"/>
+    <datalist id="moviesTitle">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Title"></option>
+        }
+    </datalist>
+    <button asp-action="Index" type="submit">Rechercher</button>
+</form>
+
+
+<div class="row">
+    <div class="d-flex align-items-center">
+        <h2>Films actuellement au cinéma</h2>
+        <a class="btn btn-warning" asp-controller="Movies" asp-action="Create">Ajouter un film</a>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem; padding: 0; margin: 0.5rem 0.5rem">
+            <img class="card-img-top bg-dark" src="~/img/movie/@item.Image.ImageName" alt="Card image cap" width="260" height="390">
+            <div class="card-img-overlay text-right" style="pointer-events: none">
+                <img width="30" height="30" src="@item.Pegi.IllustrationPath" />
+            </div>
+            <div class="card-body">
+                <h5 class="">@item.Title</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Genre : @item.Type.Name</li>
+                    <li class="list-group-item">Durée : @item.Duration minutes</li>
+                    <li class="list-group-item">Date de sortie : @item.ReleaseDate.ToString("d")</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <a class="card-link btn btn-info" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">Détails</a>
+            </div>
+
+        </div>
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pegi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pegi.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

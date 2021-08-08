@@ -1,0 +1,49 @@
+﻿@model CinemaForYou.Models.ImplantationManagerViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Implantation</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Implantation.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Implantation.Name)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Ses salles</h4>
+    <table class="table-striped">
+        <thead>
+        <tr>
+            <th>Numéro de la salle</th>
+            <th>Nombre de place(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Room room in Model.Rooms)
+        {
+            <tr>
+                <th>@room.Number</th>
+                <th>@room.Seats place(s)</th>
+                <th class="link-success"><a asp-controller="Rooms" asp-action="Details" asp-route-id="@room.Id">Détails</a></th>
+                <th class="link-success"><a asp-controller="Rooms" asp-action="Edit" asp-route-id="@room.Id">Modifier</a></th>
+                <th class="link-success"><a asp-controller="Rooms" asp-action="Delete" asp-route-id="@room.Id">Supprimer</a></th>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a class="btn btn-success" asp-controller="Rooms" asp-action="Create" asp-route-id="@Model.Implantation.Id">Ajouter une salle</a>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Implantation.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

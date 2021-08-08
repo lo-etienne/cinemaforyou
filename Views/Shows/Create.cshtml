@@ -1,0 +1,44 @@
+﻿@model CinemaForYou.Models.ShowViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Ajout d'une séance pour @Html.DisplayFor(model => model.Movie.Title)</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Show.Date" class="control-label"></label>
+                <input type="date" asp-for="Show.Date" class="form-control" />
+                <span asp-validation-for="Show.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Show.Heure" class="control-label"></label>
+                <select asp-for="Show.Heure" asp-items="@Model.AvailableHours" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomId" class="control-label"></label>
+                <select asp-for="RoomId" asp-items="@Model.Rooms" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+            </div>
+            <input type="hidden" asp-for="ImplantationId" value="@Model.ImplantationId" />
+            <input type="hidden" asp-for="Movie.Id" value="@Model.Movie.Id" />
+            <input type="hidden" asp-for="Movie.Title" value="@Model.Movie.Title" />
+            <input type="hidden" asp-for="Movie.Description" value="@Model.Movie.Description" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

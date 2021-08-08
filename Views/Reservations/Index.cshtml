@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CinemaForYou.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mes réservations</h1>
+
+@if (Model.Count() == 0)
+{
+    <p class="text-info">Vous n'avez aucune réservation en cours</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Show.Date)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Show.Date)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Détails</a>
+                    @{
+                        DateTime date = item.Show.Date.Add(item.Show.Heure);
+                        @if (@date.Subtract(DateTime.Now).Days > 1)
+                        {
+                <span>|</span> <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a> 
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,49 @@
+﻿@using CinemaForYou.Migrations
+@model CinemaForYou.Models.Reservation
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Member> SignInManager
+@inject UserManager<Member> UserManager
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>CinemaForYou vous remercie pour votre réservation</h1>
+<p>Vous pouvez l'annuler jusqu'à la veille de la séance</p>
+
+<hr/>
+
+<div>
+    <h2>Votre réservation</h2>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Movie.Title) du film
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Movie.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Heure)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Heure)
+        </dd>
+        <dt class="col-sm-2">
+            Nombre de participant(s)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Spectators.Count + 1) participant(s)
+        </dd>
+    </dl>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

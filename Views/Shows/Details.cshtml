@@ -1,0 +1,118 @@
+﻿@model CinemaForYou.Models.ShowDataViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<h2>Informations sur la séance</h2>
+
+<div class="card-img-top d-flex align-items-center">
+    <div class="card-headerborder-0" style="padding: 0">
+        <img src="~/img/movie/@Model.Show.Movie.Image.ImageName" width="300" height="400" />
+    </div>
+    <div class="card-body">
+        <h2 class="card-title"> @Html.DisplayFor(model => model.Show.Movie.Title)</h2>
+        <p class="card-text" style="word-wrap: break-word">@Html.DisplayFor(model => model.Show.Movie.Description)</p>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Show.Movie.ReleaseDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Show.Movie.ReleaseDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Show.Movie.Duration)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Show.Movie.Duration) minute(s)
+            </dd>
+            <dt class="col-sm-2">
+                Genre
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Show.Movie.Type.Name)
+            </dd>
+        </dl>
+    </div>
+</div>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Date
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Show.Date.ToString("d")
+        </dd>
+        <dt class="col-sm-2">
+            Heure
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Show.Heure.ToString(@"hh\:mm") - @Model.Show.Heure.Add(new TimeSpan(0, Model.Show.Movie.Duration, 0)).ToString(@"hh\:mm");
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Movie.Duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Movie.Duration) minute(s)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Implantation.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Implantation.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Show.Room.Number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Show.Room.Number)
+        </dd>
+        <dt class="col-sm-2">
+            Place(s) restante(s)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Show.Room.Seats - @Model.Reservations.Count)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+@if (User.IsInRole("Manager"))
+{
+    <h2>Informations sur les réservations</h2>
+@if (@Model.Reservations.Count == 0)
+{
+    <p class="text-warning">Il n'y a actuellement aucune réservation</p>
+}
+else
+{
+    <p>Il y a actuellement @Model.Reservations.Count réservation(s)</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Accompagnateur(s)</th>
+            <th>Détail</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Reservation reservation in @Model.Reservations)
+        {
+            <tr>
+                <td>@reservation.Member.Name</td>
+                <td>@reservation.Spectators.Count</td>
+                <td><a class="link-success" asp-action="Details" asp-controller="Reservations" asp-route-id="@reservation.Id">Détails</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+        
+}
+}
+<div>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Show.Id">Modifier</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Show.Id">Supprimer</a>
+</div>

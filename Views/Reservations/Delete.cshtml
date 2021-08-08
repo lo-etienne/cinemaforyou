@@ -1,0 +1,38 @@
+﻿@model CinemaForYou.Models.ReservationCancellationViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Annulation d'une réservation</h1>
+
+<div class="d-flex align-content-center">
+    <p>Souhaitez-vous annuler entièrement cette réservation ?</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Reservation.Id" />
+        <input type="submit" value="Oui" class="btn btn-danger" asp-route-deleteEveryone="@true"/>
+        <input type="hidden" asp-for="Reservation.Id" />
+        <input type="hidden" asp-for="Reservation.MemberId" value="@Model.Reservation.MemberId" />
+        <input type="hidden" asp-for="Reservation.ShowId" value="@Model.Reservation.ShowId" />
+    </form>
+</div>
+
+<div>
+    <h3>L'annulation ne concerne que des personnes en particulier ?</h3>
+    <form asp-action="Delete">
+       
+        <div>
+            @for (int i = 0; i < @Model.Reservation.Spectators.Count; i++)
+            {
+                <div class="spectator">
+                    <label>@Model.Reservation.Spectators.ElementAt(i).Name @Model.Reservation.Spectators.ElementAt(i).Surname</label>
+                    <input type="checkbox" name="SpectatorsId" value="@Model.Reservation.Spectators.ElementAt(i).Id" />
+                </div>
+            }
+        </div>
+        <input type="submit" value="Delete" class="btn btn-danger" asp-route-deleteEveryone="@false"/>
+        <input type="hidden" asp-for="Reservation.Id" />
+        <input type="hidden" asp-for="Reservation.MemberId" value="@Model.Reservation.MemberId" />
+        <input type="hidden" asp-for="Reservation.ShowId" value="@Model.Reservation.ShowId" />
+    </form>
+</div>

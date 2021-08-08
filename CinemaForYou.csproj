@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>23fa521e-2069-48e8-8869-d8b74699ec8c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Identity\Data\**" />
+    <Content Remove="Areas\Identity\Data\**" />
+    <EmbeddedResource Remove="Areas\Identity\Data\**" />
+    <None Remove="Areas\Identity\Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210701095823_init.cs" />
+    <Compile Remove="Migrations\20210701095823_init.Designer.cs" />
+    <Compile Remove="Migrations\20210701110640_ini.cs" />
+    <Compile Remove="Migrations\20210701110640_ini.Designer.cs" />
+    <Compile Remove="Migrations\20210701110658_init.cs" />
+    <Compile Remove="Migrations\20210701110658_init.Designer.cs" />
+    <Compile Remove="Migrations\20210726094008_identityuser.cs" />
+    <Compile Remove="Migrations\20210726094008_identityuser.Designer.cs" />
+    <Compile Remove="Migrations\20210726100301_Identity.cs" />
+    <Compile Remove="Migrations\20210726100301_Identity.Designer.cs" />
+    <Compile Remove="Migrations\20210726101912_Identity.cs" />
+    <Compile Remove="Migrations\20210726101912_Identity.Designer.cs" />
+    <Compile Remove="Migrations\20210807184114_RolesUpdated.cs" />
+    <Compile Remove="Migrations\20210807184114_RolesUpdated.Designer.cs" />
+    <Compile Remove="Migrations\20210807204412_RolesAndSpectatorUpdate.cs" />
+    <Compile Remove="Migrations\20210807204412_RolesAndSpectatorUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20210807204614_RolesAndSpectatorUpdate.cs" />
+    <Compile Remove="Migrations\20210807204614_RolesAndSpectatorUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20210808151406_ReservationDeleteOnCascade.cs" />
+    <Compile Remove="Migrations\20210808151406_ReservationDeleteOnCascade.Designer.cs" />
+    <Compile Remove="Migrations\20210808151716_DbContextDeleteOnCascade.cs" />
+    <Compile Remove="Migrations\20210808151716_DbContextDeleteOnCascade.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\movie\" />
+  </ItemGroup>
+
+</Project>

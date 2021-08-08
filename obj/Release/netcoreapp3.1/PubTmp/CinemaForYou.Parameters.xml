@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="StudentWeb\grGR" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Etien\\source\\repos\\CinemaForYou\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="CinemaForYou.Models.CinemaForYouDbContext" description="" value="Server=192.168.128.18; Database=in18b1131; User Id =in18b1131; Password = 2563" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Etien\\source\\repos\\CinemaForYou\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\CinemaForYou\.Models\.CinemaForYouDbContext\.sql$" />
+  </parameter>
+</parameters>

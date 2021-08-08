@@ -1,0 +1,96 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenue !</h1>
+    <p>C4You est un nouvel acteur dans le domaine du cinéma grand public et il désire s’établir en Belgique
+        avec deux sites pour commencer, un dans chaque région du pays. Suite à la pandémie actuelle, le
+        groupe souhaite offrir à sa nouvelle clientèle le moyen de faire ses réservations en ligne pour éviter
+        de faire la file aux guichets.
+    </p>
+</div>
+
+<div  class="row">
+    <h2>Films</h2>
+    @foreach (Movie movie in Model.Movies)
+    {
+        <div class="card" style="width: 18rem; padding: 0; margin: 0.5rem 0.5rem">
+            <img class="card-img-top bg-dark" src="~/img/movie/@movie.Image.ImageName" alt="Card image cap" width="260" height="390">
+            <div class="card-img-overlay text-right" style="pointer-events: none">
+                <img width="30" height="30" src="@movie.Pegi.IllustrationPath" />
+            </div>
+            <div class="card-body">
+                <h5 class="">@movie.Title</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Genre : @movie.Type.Name</li>
+                    <li class="list-group-item">Durée : @movie.Duration minutes</li>
+                    <li class="list-group-item">Date de sortie : @movie.ReleaseDate.ToString("d")</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <a class="card-link btn btn-info" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">Détails</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center">
+    <h2>Séances</h2>
+    <table class="table table-striped">
+        <thead>
+        <th>Film</th>
+        <th>Implantation</th>
+        <th>Salle</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Places restantes</th>
+        </thead>
+        <tbody>
+        @foreach (Movie movie in Model.Movies)
+        {
+            @foreach (Show show in movie.Shows)
+            {
+                <tr>
+                    <th>@movie.Title</th>
+                    <th>@show.Implantation.Name</th>
+                    <th>@show.Room.Number</th>
+                    <th>@show.Date.ToString("d")</th>
+                    <th>@show.Date.ToString("t") - @show.Date.AddMinutes(movie.Duration).ToString("t")</th>
+                    <th>@( show.Room.Seats - @show.Reservations.Count )</th>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <h2>Séances</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Film</th>
+            <th scope="col">Implantation</th>
+            <th scope="col">Heure</th>
+            <th scope="col">Place(s) restante(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@Model.Movies.Count</td>
+            <td>Kinepolis Liège</td>
+            <td>20h</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Le seigneur des anneaux</td>
+            <td>Kinepolis Roccourt</td>
+            <td>16k</td>
+            <td>26</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

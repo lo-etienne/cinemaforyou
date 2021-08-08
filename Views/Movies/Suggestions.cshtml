@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CinemaForYou.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Suggestion de films</h1>
+
+<p class="text-danger">Un des participants n'a pas l'âge nécessaire pour ce film, voici des films pour lesquels vous pouvez effectuer une réservation</p>
+
+<div class="row">
+    @{
+        int suggestionsNumber = Model.Count();
+        if (suggestionsNumber > 3)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+
+                <div class="card" style="width: 18rem; padding: 0; margin: 0.5rem 0.5rem">
+                    <img class="card-img-top bg-dark" src="/img/movie/@Model.ElementAt(i).Image.ImageName" alt="Card image cap" width="260" height="390">
+                    <div class="card-img-overlay text-right" style="pointer-events: none">
+                        <img width="30" height="30" src="/@Model.ElementAt(i).Pegi.IllustrationPath"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="">@Model.ElementAt(i).Title</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Genre : @Model.ElementAt(i).Type.Name</li>
+                            <li class="list-group-item">Durée : @Model.ElementAt(i).ReleaseDate.ToString("d")</li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <a class="card-link btn btn-info" asp-controller="Movies" asp-action="Details" asp-route-id="@Model.ElementAt(i).Id">Détails</a>
+                    </div>
+
+                </div>
+
+            }
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="card" style="width: 18rem; padding: 0; margin: 0.5rem 0.5rem">
+                    <img class="card-img-top bg-dark" src="/img/movie/@item.Image.ImageName" alt="Card image cap" width="260" height="390">
+                    <div class="card-img-overlay text-right" style="pointer-events: none">
+                        <img width="30" height="30" src="/@item.Pegi.IllustrationPath"/>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="">@item.Title</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Genre : @item.Type.Name</li>
+                            <li class="list-group-item">Durée : @item.Duration minutes</li>
+                            <li class="list-group-item">Date de sortie : @item.ReleaseDate.ToString("d")</li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <a class="card-link btn btn-info" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">Détails</a>
+                    </div>
+
+                </div>
+            }
+        }
+    }
+   
+</div>
