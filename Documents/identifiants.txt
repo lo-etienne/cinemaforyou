@@ -1,0 +1,15 @@
+Administrateur :
+
+Login : peterjackson@c4y.com
+Password : Lotr1!
+
+Utilisateurs :
+
+Login : etienneloic@gmail.com
+Password : Loic123/
+
+Login : fillonjustine@gmail.com
+Password : Justine123/
+
+Login : etiennemathys@gmail.com
+Password : Mathys123/
